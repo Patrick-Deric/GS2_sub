@@ -9,7 +9,7 @@ Turma: SI3
 
 # Modo de rodar
 Rodar arquivo main.dart
-Baixar dependencias dop arquivo pubspec.yaml
+Baixar dependencias do arquivo pubspec.yaml
 
 ---
 
