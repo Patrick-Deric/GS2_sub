@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'agendar_exame_page.dart';
-import 'firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'add_exame.dart';
 import 'calendario_page.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 
@@ -23,6 +17,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// The rest of your code remains unchanged...
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key});
@@ -207,4 +204,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
