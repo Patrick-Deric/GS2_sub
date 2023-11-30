@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Importe o pacote do Firestore
-import 'firebase_options.dart'; // Importe o arquivo com o serviço do Firebase
+
 
 class AgendarExamePage extends StatefulWidget {
   const AgendarExamePage({Key? key}) : super(key: key);
@@ -56,14 +55,18 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Campos Obrigatórios'),
-            content: const Text('Por favor, preencha todos os campos antes de confirmar a consulta.'),
+            content: const Text(
+                'Por favor, preencha todos os campos antes de confirmar a consulta.'),
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context); // Alteração aqui para fechar o diálogo
+                  Navigator.pop(
+                      context); // Alteração aqui para fechar o diálogo
 
                   // O código abaixo agendará a consulta no Firebase Firestore
-                  agendarConsulta(selectedMedicalArea!, selectedDates, selectedCity!, selectedHospital!, userEmail!);
+                  agendarConsulta(
+                      selectedMedicalArea!, selectedDates, selectedCity!,
+                      selectedHospital!, userEmail!);
 
                   // Limpar os campos após agendar a consulta
                   setState(() {
@@ -89,7 +92,9 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
         return AlertDialog(
           title: const Text('Consulta Confirmada!'),
           content: Text(
-            'Sua consulta de $selectedMedicalArea foi agendada para ${selectedDates.map((date) => DateFormat.yMd().format(date)).join(', ')} no $selectedHospital em $selectedCity.',
+            'Sua consulta de $selectedMedicalArea foi agendada para ${selectedDates
+                .map((date) => DateFormat.yMd().format(date)).join(
+                ', ')} no $selectedHospital em $selectedCity.',
           ),
           actions: [
             TextButton(
@@ -116,7 +121,9 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year + 1),
+      lastDate: DateTime(DateTime
+          .now()
+          .year + 1),
     );
     if (picked != null) {
       setState(() {
@@ -177,7 +184,8 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedCity = newValue;
-                  selectedHospital = null; // Limpar o hospital ao selecionar uma nova cidade
+                  selectedHospital =
+                  null; // Limpar o hospital ao selecionar uma nova cidade
                 });
               },
               hint: const Text('Selecione a cidade em São Paulo'),
@@ -186,7 +194,8 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
             if (selectedDates.isNotEmpty)
               DropdownButton<String>(
                 value: selectedHospital,
-                items: citiesAndHospitals[selectedCity ?? '']?.map((String hospital) {
+                items: citiesAndHospitals[selectedCity ?? '']?.map((
+                    String hospital) {
                   return DropdownMenuItem<String>(
                     value: hospital,
                     child: Text(hospital),
@@ -229,19 +238,7 @@ class _AgendarExamePageState extends State<AgendarExamePage> {
     );
   }
 
-  void agendarConsulta(String selectedMedicalArea, List<DateTime> selectedDates, String selectedCity, String selectedHospital, String userEmail) {
-    final CollectionReference appointments = FirebaseFirestore.instance.collection('appointments');
+  void agendarConsulta(String s, List<DateTime> selectedDates, String t,
+      String u, String v) {}
 
-    appointments.add({
-      'medical_area': selectedMedicalArea,
-      'dates': selectedDates.map((date) => Timestamp.fromDate(date)).toList(),
-      'city': selectedCity,
-      'hospital': selectedHospital,
-      'user_email': userEmail,
-    }).then((value) {
-      print('Consulta agendada com sucesso! ID: ${value.id}');
-    }).catchError((error) {
-      print('Erro ao agendar consulta: $error');
-    });
-  }
 }
